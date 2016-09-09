@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/components-font-awesome/css/font-awesome.min.css'/>
+  </head>
+  <body>
+  <script src='/jquery/dist/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    <div class="row">
+      <div class="well">
+        <div class="logo"></div>
+        <h1 style="margin-left: 120px;"><%= subtitle %></h1>
+        <div style="float: right; margin-top: -45px;">
+          <ul style="display: inline-block">
+            <li style="list-style-type: none"><a class="btn btn-success" href="/maps">Посмотреть на карте</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+    <div class="col-lg-12">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Device ID</th>
+        <th>Device pureID</th>
+        <th id="longtude">Долгота</th>
+        <th id="latitude">Широта</th>
+        <th id="accuracy">Точность GPS</th>
+        <th>Дата/Время</th>
+        <th>Скорость (км/ч)</th>
+        <th>Страна</th>
+        <th>Город</th>
+        <th>Почтовое отделение</th>
+        <th>Улица/Проспект</th>
+      </tr>
+      </thead>
+     <!--  $each(function(res){ -->
+
+      <% result.forEach(function(res){ %>
+      <tbody>
+      <tr>
+        <th><%= res.Id %><br/></th><!-- Уникальный идентифекатор устройства -->
+        <th><%= res.pureId %><br/></th><!-- Уникальный идентифекатор устройства -->
+        <td><%= res.Latitude %><br/></td><!-- Широта -->
+        <td><%= res.Longitude %><br/></td><!-- Долгота -->
+        <td><%= res.Date %></td><!-- Дата -->
+        <td><%= res.Time %></td><!-- Время -->
+        <td><%= res.Speed %></td><!-- Скорость -->
+        <td><%= res.Direction %></td> ><!-- Направление -->
+        <td><%= res.Altitude %></td><!-- Высота -->
+        <td><%= res.Power %></td> <!-- Заряд аккумулятора -->
+        <td><%= res.Terminal_state %></td> <!-- Состояние -->
+      </tr>
+      </tbody>
+      <% }); %>
+    </table>
+      <!--     <hr/>
+      !--  <div class="row" style="display: none;">
+              <div class="col-lg-12">
+                <div class="well">
+                  <form role="form" action="/locations" method="post">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Id" placeholder="Device ID"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Longitude" placeholder="Долгота"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Latitude" placeholder="Широта"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Date" placeholder="Точность GPS"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Time" placeholder="Страна"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Speed" placeholder="Город"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Direction" placeholder="Почтовый индекс"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Altitude" placeholder="Улица/Проспект"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Power" placeholder="Дата/Время"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="Terminal_state" placeholder="Скорость"/>
+                    </div>
+                    <br/>
+                    <button type="submit" class="btn btn-default">Добавить</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!--    <div class="hit-accurace" style="display: none" id="hits-accurace">
+                  Типичная точность определения координат GPS приемниками в горизонтальной плоскости составляет примерно 1-2 метра
+                  (при условии хорошей видимости небосвода). Точность определения высоты над уровнем моря обычно в 2-5 раз ниже,
+                  чем точность определения координат в тех же условиях (т.е. в идеальных условиях 2-10 метра).
+                </div>
+
+                <div class="hit-latitude" style="display: none" id="hits-latitude">
+                  Широта — угол φ между местным направлением зенита и плоскостью экватора, отсчитываемый от 0° до 90° в обе стороны от экватора.
+                  Географическую широту точек, лежащих в северном полушарии, (северную широту) принято считать положительной,
+                  широту точек в южном полушарии — отрицательной. О широтах, близких к полюсам, принято говорить как о высоких,
+                  а о близких к экватору — как о низких.
+                </div>
+
+                <div class="hit-longtude" style="display: none" id="hits-longtude">
+                  Долгота — двугранный угол λ между плоскостью меридиана, проходящего через данную точку, и плоскостью начального нулевого меридиана,
+                  от которого ведётся отсчёт долготы. Долготу от 0° до 180° к востоку от нулевого меридиана называют восточной, к западу — западной.
+                  Восточные долготы принято считать положительными, западные — отрицательными.
+                </div>-->
+
+        </div>
+        </div>
+
+
+    </body>
+  </html>

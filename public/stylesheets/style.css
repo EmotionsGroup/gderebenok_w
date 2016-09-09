@@ -1,0 +1,106 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.logo {
+  position: absolute;
+  padding: 5px;
+  background-image: url('../images/list.png');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 103px;
+  margin-top: -16px;
+}
+
+.logo-map {
+  position: absolute;
+  padding: 5px;
+  background-image: url('../images/logo.png');
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  margin-top: -16px;
+}
+
+#map_canvas{
+  margin-left: 18px;
+  font-family: helvetica, 'helvetica neue', arial, sans-serif;
+  position: absolute;
+  width: 70%;
+  height: 78%;
+  overflow: hidden;
+  transform: translateZ(0px);
+  background-color: rgb(229, 227, 223);
+}
+
+.hit-accurace {
+  position: absolute;
+  width: 500px;
+  height: 150px;
+  background-color: #245580;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: -150px;
+  margin-left: 820px;
+  opacity: 0.9;
+}
+
+#accuracy {
+  cursor: pointer;
+}
+
+.hit-latitude {
+  position: absolute;
+  width: 500px;
+  height: 170px;
+  background-color: #245580;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  opacity: 0.9;
+  margin-left: 500px;
+  margin-top: -150px;
+}
+
+#latitude {
+  cursor: pointer;
+}
+
+.hit-longtude {
+  position: absolute;
+  width: 500px;
+  height: 150px;
+  background-color: #245580;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  opacity: 0.9;
+  margin-left: 400px;
+  margin-top: -150px;
+}
+
+#longtude {
+  cursor: pointer;
+}
+/* CSS REQUIRED */
+.state-icon {
+  left: -5px;
+}
+.list-group-item-primary {
+  color: rgb(255, 255, 255);
+  background-color: rgb(66, 139, 202);
+}
+
+/* DEMO ONLY - REMOVES UNWANTED MARGIN */
+.well .list-group {
+  margin-bottom: 0px;
+}
+
+
+

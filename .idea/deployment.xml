@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Watch" uploadOnCheckin="ef0b1992-117a-4371-9e2c-5e42b51e4219">
+    <serverData>
+      <paths name="Watch">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="Watch" />
+  </component>
+</project>
