@@ -50,9 +50,9 @@
 |                                            |             |                                                 |
 
 >### Description Methods and Parameters
->**alarms** - тревоги
->**device_id** - id устройства
->**flower** - сердечки		
+>**alarms** - тревоги<br />
+>**device_id** - id устройства<br />
+>**flower** - сердечки<br />		
 >**сount** - количество				
 >**upload** - задаваемый интервал ответа 
 >**сenternumber** - головной номер
