@@ -36,8 +36,8 @@
 | api/display/:device_id/:message            | POST        | Phrases Display set instruction                 |
 | api/find_watch/:device_id                  | POST        | Looking for a watch instruction                 | 
 | api/setting/:device_id/:tsfrom1/:tsto1/    |             |                                                 |
-              :tsfrom2/:tsto2/:tsfrom3:/      POST          No disturbance time section set                   
-              :tsto3/:tsfrom4/:tsto4                                                                          
+|             :tsfrom2/:tsto2/:tsfrom3:/     | POST        | No disturbance time section set                 |
+|             :tsto3/:tsfrom4/:tsto4         |             |                                                 |
 | api/setting/:device_id/:sleeptimefrom/     | POST        | Sleep and rollver time detection settings       |
 |             :sleeptimeto                   |             |                                                 |
 | api/setting/:device_id/:walktimefrom1/     |             |                                                 |
