@@ -4,42 +4,50 @@
 ###### sudo node app.js
 --------------------------------------
 >### API
-|                                           Routes                                                           |   HTTP Verb  |                 Description                     |
-|------------------------------------------------------------------------------------------------------------|--------------|-------------------------------------------------|
-| api/                                                                                                       | GET          | Get test API message                            |
-| api/alarms                                                                                                 | GET          | Get all alarms                                  |
-| api/alarms/:device_id                                                                                      | GET          | Get single alarm by device id                   |
-| api/flower/:device_id/:count                                                                               | POST         | Send to watch number of hearts                  |
-| api/upload/:device_id/:count                                                                               | POST         | Upload the data interval is set                 |
-|api/centernumber/:device_id/:number                                                                         | POST         | Center number set up                            | 
-| api/slavenumber/:device_id/:number                                                                         | POST         | Assist center number set up                     |
-| api/controlpw/:device_id/:password                                                                         | POST         | Control password set up                         | 
-| api/outcalls/:device_id/:number                                                                            | POST         | Outgoing calls                                  |
-| api/setsos/:device_id/:number1                                                                             | POST         | First SOS number set up                         |
-| api/setsos/:device_id/:number2                                                                             | POST         | Second SOS number set up                        |
-| api/setsos/:device_id/:number3                                                                             | POST         | Third SOS number set up                         |
-| api/setsos/:device_id/:num1/:num2/:num3                                                                    | POST         | SOS numbers set at the same time                |
-| api/setting/:device_id/:ip/:ports                                                                          | POST         | IP port settings                                | 
-| api/factory/:device_id                                                                                     | POST         | Restore factory settings                        | 
-| api/setting/:device_id/:language/:timezone                                                                 | POST         | Set the language and time zone                  |
-| api/sossms/:device_id/:switchs                                                                             | POST         | SOS SMS alarm switch                            |
-| api/lowbattery/:device_id/:switchs                                                                         | POST         | Low battery alarm message switch                |
-| api/poweroff/:device_id                                                                                    | POST         | The shutdown instructions                       |
-| api/restart/:device_id                                                                                     | POST         | Restart watch                                   |
-| api/pi/:device_id                                                                                          | POST         | Positioning instruction                         |
-| api/bluetooth/:device_id/switchs                                                                           | POST         | Bluetooth control instruction                   |
-| api/imei/:device_id/:number                                                                                | POST         | Set IMEI number                                 | 
-| api/sms/:device_id/:switchs                                                                                | POST         | Terminal all sms switch (0: Close, 1: Open)     |
-| api/auto_answ_control/:device_id/:switchs                                                                  | POST         | Automatic answering control (0: Close, 1: Open) |
-| api/chpulse/:device_id                                                                                     | GET          | Check pulse                                     |
-| ?                                                                                                          | POST         | Alarm clock set Instruction                     |
-| api/display/:device_id/:message                                                                            | POST         | Phrases Display set instruction                 |
-| api/find_watch/:device_id                                                                                  | POST         | Looking for a watch instruction                 | 
-| api/setting/:device_id/:tsfrom1/:tsto1/:tsfrom2/:tsto2/:tsfrom3:/:tsto3/:tsfrom4/:tsto4                    | POST         | No disturbance time section set                 |
-| api/setting/:device_id/:sleeptimefrom/:sleeptimeto                                                         | POST         | Sleep and rollver time detection settings       |
-| api/setting/:device_id/:walktimefrom1/:walktimeto1/:walktimefrom2/:walktimeto2/:walktimefrom3/:walktimeto3 | POST         | Walktime settings                               |
-| api/setting/:device_id/:worktime                                                                           | POST         | Set the working time                            |
-| api/list/:device_id/:num1/:num2/:num3/:num4/:num5                                                          | POST         | White list set command                          |
+|                      Routes                |  HTTP Verb  |                 Description                     |
+|--------------------------------------------|-------------|-------------------------------------------------|
+| api/                                       | GET         | Get test API message                            |
+| api/alarms                                 | GET         | Get all alarms                                  |
+| api/alarms/:device_id                      | GET         | Get single alarm by device id                   |
+| api/flower/:device_id/:count               | POST        | Send to watch number of hearts                  |
+| api/upload/:device_id/:count               | POST        | Upload the data interval is set                 |
+|api/centernumber/:device_id/:number         | POST        | Center number set up                            | 
+| api/slavenumber/:device_id/:number         | POST        | Assist center number set up                     |
+| api/controlpw/:device_id/:password         | POST        | Control password set up                         | 
+| api/outcalls/:device_id/:number            | POST        | Outgoing calls                                  |
+| api/setsos/:device_id/:number1             | POST        | First SOS number set up                         |
+| api/setsos/:device_id/:number2             | POST        | Second SOS number set up                        |
+| api/setsos/:device_id/:number3             | POST        | Third SOS number set up                         |
+| api/setsos/:device_id/:num1/:num2/:num3    | POST        | SOS numbers set at the same time                |
+| api/setting/:device_id/:ip/:ports          | POST        | IP port settings                                | 
+| api/factory/:device_id                     | POST        | Restore factory settings                        | 
+| api/setting/:device_id/:language/:timezone | POST        | Set the language and time zone                  |
+| api/sossms/:device_id/:switchs             | POST        | SOS SMS alarm switch                            |
+| api/lowbattery/:device_id/:switchs         | POST        | Low battery alarm message switch                |
+| api/poweroff/:device_id                    | POST        | The shutdown instructions                       |
+| api/restart/:device_id                     | POST        | Restart watch                                   |
+| api/pi/:device_id                          | POST        | Positioning instruction                         |
+| api/bluetooth/:device_id/switchs           | POST        | Bluetooth control instruction                   |
+| api/imei/:device_id/:number                | POST        | Set IMEI number                                 | 
+| api/sms/:device_id/:switchs                | POST        | Terminal all sms switch (0: Close, 1: Open)     |
+| api/auto_answ_control/:device_id/:switchs  | POST        | Automatic answering control (0: Close, 1: Open) |
+| api/chpulse/:device_id                     | GET         | Check pulse                                     |
+| ?                                          | POST        | Alarm clock set Instruction                     |
+| api/display/:device_id/:message            | POST        | Phrases Display set instruction                 |
+| api/find_watch/:device_id                  | POST        | Looking for a watch instruction                 | 
+| api/setting/:device_id/:tsfrom1/:tsto1/    |             |                                                 |
+              :tsfrom2/:tsto2/:tsfrom3:/      POST          No disturbance time section set                   
+              :tsto3/:tsfrom4/:tsto4                                                                          
+| api/setting/:device_id/:sleeptimefrom/     | POST        | Sleep and rollver time detection settings       |
+|             :sleeptimeto                   |             |                                                 |
+| api/setting/:device_id/:walktimefrom1/     |             |                                                 |
+|             :walktimeto1/:walktimefrom2/   | POST        | Walktime settings                               |
+|             :walktimeto2/:walktimefrom3/   |             |                                                 |                           
+|             :walktimeto3                   |             |                                                 |
+| api/setting/:device_id/:worktime           | POST        | Set the working time                            |
+| api/list/:device_id/:num1/:num2/           | POST        | White list set command                          |
+|          :num3/:num4/:num5                 |             |                                                 |
+|                                            |             |                                                 |
 
 >### Description Methods and Parameters
 >**alarms** - тревоги
