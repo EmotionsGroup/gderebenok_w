@@ -19,7 +19,7 @@ var net = require('net');
 var HOST = '192.168.111.33';
 var TPORT = 3000;
 
-var error;
+var sock_error;
 var socket;
 var connect;
 
@@ -42,10 +42,7 @@ net.createServer(function (sock) {
   // We have a connection - a socket object is assigned to the connection automatically
   console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
   // Add a 'data' event handler to this instance of socket
-  sock.on('error', function(err){
-    console.log('Error: ', err);
-    throw err;
-  });
+
   sock.on('data', function(data) {
   console.log('DATA ' + sock.remoteAddress + ': ' + data);
    
@@ -81,7 +78,7 @@ net.createServer(function (sock) {
       } else {
 
         var state = pos_array[16];
-      //  state = state.toString();
+        state = state.toString();
         console.log('State: ', state);
         var watch_st = "";
 
@@ -137,6 +134,15 @@ net.createServer(function (sock) {
 
       trim_str.shift();
     }
+  });
+  sock.on('end', function(){
+    console.log('client disconnected');
+    //  sock_error  = 'client disconnected';
+    sock.destroy();
+  });
+  sock.on('error', function(err){
+    console.log('Error: ', err);
+    throw err;
   });
 
   /*// Add a 'close' event handler to this instance of socket
@@ -232,10 +238,10 @@ router.route('/flower/:device_id/:count').post(function (req, res){
   var id = req.params.device_id;
   var count = req.params.count;
   var msg = "["+id+"*0008*FLOWER,"+count+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -255,13 +261,12 @@ router.route('/poweroff/:device_id').post(function (req, res) {
     console.log("Message: " + " : " + msg);
     console.log('Socket: ', socket);
     console.log('Status:', res.socket.statusCode);
-    var socket_con = res.socket._connection;
-    if (socket_con == false || socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: 'No socket connection'
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
      socket.write(msg);
      res.json({
        statusCode: 200,
@@ -276,10 +281,10 @@ router.route('/uploud/:device_id/:count').post(function (req, res) {
   var id = req.params.device_id;
   var count = req.params.count;
   var msg = "["+id+"*0009*UPLOAD,"+count+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -297,10 +302,10 @@ router.route('/centernumber/:device_id/:number').post(function (req, res) {
   var id = req.params.device_id;
   var num = req.params.number;
   var msg = "["+id+"*0012*CENTER,"+num+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -318,10 +323,10 @@ router.route('/slavenumber/:device_id/:number').post(function (req, res) {
   var id = req.params.device_id;
   var num = req.params.number;
   var msg = "["+id+"*0011*SLAVE,"+num+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -339,10 +344,10 @@ router.route('/controlpw/:device_id/:password').post(function (req, res) {
   var id = req.params.device_id;
   var pasw = req.params.password;
   var msg = "["+id+"*0009*PW,"+pasw+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -360,10 +365,10 @@ router.route('/outcalls/:device_id/:number').post(function (req, res) {
   var id = req.params.device_id;
   var num = req.params.number;
   var msg = "["+id+"*0010*CALL,"+num+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -394,10 +399,10 @@ router.route('/setsos/:device_id/:number1').post(function (req, res) {
   var id = req.params.device_id;
   var num1 = req.params.number1;
   var msg = "["+id+"*0010*SOS1,"+num1+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -415,10 +420,10 @@ router.route('/setsos/:device_id/:number2').post(function (req, res) {
   var id = req.params.device_id;
   var num2 = req.params.number2;
   var msg = "["+id+"*0010*SOS2,"+num2+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -436,10 +441,10 @@ router.route('/setsos/:device_id/:number3').post(function (req, res) {
   var id = req.params.device_id;
   var num3 = req.params.number3;
   var msg = "["+id+"*0010*SOS3,"+num3+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -459,10 +464,10 @@ router.route('/setsos/:device_id/:num1/:num2/:num3').post(function (req, res) {
   var num2 = req.params.num2;
   var num3 = req.params.num3;
   var msg = "["+id+"*0027*SOS,"+num1+","+num2+","+num3+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -483,10 +488,10 @@ router.route('/setting/:device_id/:ip/:ports').post(function (req, res) {
   var ip = req.params.ip;
   var port = req.params.ports;
   var msg = "["+id+"*0014*IP,"+ip+","+port+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -502,10 +507,10 @@ router.route('/sossms/:device_id/:switchs').post(function (req, res) {
   var id = req.params.device_id;
   var sw = req.params.switchs;
   var msg = "["+id+"*0008*SOSSMS,"+sw+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -523,10 +528,10 @@ router.route('/lowbattery/:device_id/:switchs').post(function (req, res) {
   var id = req.params.device_id;
   var sw = req.params.switchs;
   var msg = "["+id+"*0008*LOWBAT,"+sw+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -543,12 +548,12 @@ router.route('/lowbattery/:device_id/:switchs').post(function (req, res) {
 router.route('/restart/:device_id').post(function (req, res) {
     var id = req.params.device_id;
     var msg = "["+id+"*0005*RESET]";
-    if (socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: "No socket connection"
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
       socket.write(msg);
       res.json({
         statusCode: 200,
@@ -563,12 +568,12 @@ router.route('/bluetooth/:device_id/:switchs').post(function (req, res) {
     var id = req.params.device_id;
     var sw = req.params.switchs;
     var msg = "["+id+"*0004*BT,"+sw+"]";
-    if (socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: "No socket connection"
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
       socket.write(msg);
       res.json({
         statusCode: 200,
@@ -584,12 +589,12 @@ router.route('/imei/:device_id/:number').post(function (req, res) {
     var id = req.params.device_id;
     var num = req.params.number;
     var msg = "["+id+"*0014*IMEI,"+num+"]";
-    if (socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: "No socket connection"
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
       socket.write(msg);
       res.json({
         statusCode: 200,
@@ -605,12 +610,12 @@ router.route('/sms/:device_id/:switchs').post(function (req, res) {
     var id = req.params.device_id;
     var sw = req.params.switchs;
     var msg = "["+id+"*000A*SMSONOFF,"+sw+"]";
-    if (socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: "No socket connection"
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
       socket.write(msg);
       res.json({
         statusCode: 200,
@@ -626,12 +631,12 @@ router.route('/auto_answ_control/:device_id/:switch').post(function (req, res) {
     var id = req.params.device_id;
     var sw = req.params.switchs;
     var msg = "["+id+"*0008*GSMANT,"+sw+"]";
-    if (socket === undefined) {
-      res.json({
-        statusCode: 500,
-        description: "No socket connection"
-      });
-    } else {
+  if (socket.destroyed === true) {
+    res.json({
+      statusCode: 500,
+      description: 'No socket connection. Please wait more time and try later'
+    });
+  } else {
       socket.write(msg);
       res.json({
         statusCode: 200,
@@ -663,10 +668,10 @@ router.route('/sms_control/:device_id/:power').post(function (req, res) {
   var id = req.params.device_id;
   var pw = req.params.power;
   var msg = "["+id+"*0004*PEDO,"+pw+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -685,10 +690,10 @@ router.route('/setting/:device_id/:lang/:timezone').post(function (req, res){
   var lang = req.params.language;
   var timeZone = req.params.timezone;
   var msg = "["+id+"*0006*LZ, "+lang+", "+timeZone+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: "No socket connection"
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -706,10 +711,10 @@ router.route('/setting/:device_id/:lang/:timezone').post(function (req, res){
 router.route('/factory/:device_id').post(function (req, res){
   var id = req.params.device_id;
   var msg = "["+id+"*0007*FACTORY]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -725,10 +730,10 @@ router.route('/factory/:device_id').post(function (req, res){
 router.route('/pi/:device_id').post(function (req, res) {
   var id = req.params.device_id;
   var msg = "["+id+"*0002*CR]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -781,15 +786,17 @@ router.route('/display/:device_id/:message').post(function (req, res) {
   console.log('Mes: ', m);
   var msg = "["+id+"*00"+len+"*MESSAGE,"+m+"]";
   console.log('Message to send: ', msg);
-  socket.write(msg);
-  if (socket === undefined) {
+  console.log('Error, ', sock_error);
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
+    socket.write(msg);
     res.json({
-      message: msg
+      statusCode: 200,
+      description: 'Message is sent'
     });
   }
   socket = '';
@@ -804,10 +811,10 @@ router.route('/list/:device_id/:num1/:num2/:num3/:num4/:num5').post(function (re
   var number_4 = req.params.num4;
   var number_5 = req.params.num5;
   var msg = "["+id+"*002D*WHITELIST1,"+number_1+","+number_2+","+number_3+","+number_4+","+number_5+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -836,10 +843,10 @@ router.route('/setting/:device_id/:tsfrom1/:tsto1/:tsfrom2/:tsto2/:tsfrom3:/:tst
   var timesectionFrom_4 = req.params.tsfrom4;
   var timesectionTo_4 = req.params.tsto4;
   var msg = "["+id+"*0037*SILENCETIME,"+timesectionFrom_1+"-"+timesectionTo_1+","+timesectionFrom_2+"-"+timesectionTo_2+","+timesectionFrom_3+"-"+timesectionTo_3+","+timesectionFrom_4+"-"+timesectionTo_4+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -857,10 +864,10 @@ router.route('/setting/:device_id/:sleeptimefrom/sleeptimeto').post(function (re
   var sleepTimeFrom = req.params.sleeptimefrom;
   var sleepTimeTo = req.params.sleeptimeto;
   var msg = "["+id+"*0014*SLEEPTIME,"+sleepTimeFrom+"-"+sleepTimeTo+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -882,10 +889,10 @@ router.route('/setting/:device_id/:walktimefrom1/:walktimeto1/:walktimefrom2/:wa
   var wtFrom3 = req.params.walktimefrom3;
   var wtTo3 = req.params.walktimeto3;
   var msg = "["+id+"*002A*WALKTIME,"+wtFrom1+"-"+wtTo1+","+wtFrom2+"-"+wtTo2+","+wtFrom3+"-"+wtTo3+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
@@ -902,10 +909,10 @@ router.route('/setting/:device_id/:worktime').post(function (req, res) {
   var id = req.params.device_id;
   var wt = req.params.worktime;
   var msg = "["+id+"*000A*WORKTIME,"+wt+"]";
-  if (socket === undefined) {
+  if (socket.destroyed === true) {
     res.json({
       statusCode: 500,
-      description: 'No socket connection'
+      description: 'No socket connection. Please wait more time and try later'
     });
   } else {
     socket.write(msg);
